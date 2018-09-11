@@ -1,0 +1,96 @@
+Partlist exported from C:/PCB/Digilent/Work/chipKIT Basic IO/chipKIT Basic IO.sch at 7/6/2011 11:17:17 AM
+
+Part  Value             Device            Package                Description                                                                       
+BTN1  SW-P8008          SW-P8008          SW-P8008               153-000: SPST, Push button, momentary                                             
+BTN2  SW-P8008          SW-P8008          SW-P8008               153-000: SPST, Push button, momentary                                             
+BTN3  SW-P8008          SW-P8008          SW-P8008               153-000: SPST, Push button, momentary                                             
+BTN4  SW-P8008          SW-P8008          SW-P8008               153-000: SPST, Push button, momentary                                             
+C1    0.1uF             CAP-S0402S        C0402S                 Capacitor                                                                         
+C2    0.1uF             CAP-S0402S        C0402S                 Capacitor                                                                         
+C3    1uF               CAP-S0402S        C0402S                 Capacitor                                                                         
+C4    1uF               CAP-S0402S        C0402S                 Capacitor                                                                         
+C5    1uF               CAP-S0402S        C0402S                 Capacitor                                                                         
+C6    2.2uF             CAP-S0603S        C0603S                 Capacitor                                                                         
+C7    2.2uF             CAP-S0603S        C0603S                 Capacitor                                                                         
+C8    1uF               CAP-S0402S        C0402S                 Capacitor                                                                         
+C9    10uF/25V          CAP-S1206S        C1206S                 Capacitor                                                                         
+D5    MBR0520           MBR0520           SOD-123                Shottkey Power Rectifier                                                          
+D6    MBR0520           MBR0520           SOD-123                Shottkey Power Rectifier                                                          
+D7    MBR0520           MBR0520           SOD-123                Shottkey Power Rectifier                                                          
+D8    MBR0520           MBR0520           SOD-123                Shottkey Power Rectifier                                                          
+DISP1 UG-2832HSWEG04    UG-2832HSWEG04    UG-2832HSWEG04         Univisiont Technology UG-2832HSWEG04 128x32 Monochrome, Passive Matrix OLED Module
+IC1   24LC256MS         24LC256MS         MSOP8-MS               256K I2C CMOS Serial EEPROM                                                       
+IC2   TCN75AVUA         TCN75AVUA         MSOP8-MS                                                                                                 
+J1    HDR-2X8           HDR-2X8           HDR-2X8                100mil 2x8 header                                                                 
+J2    HDR-2X8           HDR-2X8           HDR-2X8                100mil 2x8 header                                                                 
+J3    HDR-1X6           HDR-1X6           HDR-1X6                                                                                                  
+J4    No Load           HDR-2X3           HDR-2X3                                                                                                  
+J5    HDR-1X6           HDR-1X6           HDR-1X6                                                                                                  
+J6    TB-840502-2       TB-840502-2       TB-840502-2            Terminal Block, screw contact                                                     
+J7    TB-840502-2       TB-840502-2       TB-840502-2            Terminal Block, screw contact                                                     
+J8    TB-840502-2       TB-840502-2       TB-840502-2            Terminal Block, screw contact                                                     
+J9    TB-840502-2       TB-840502-2       TB-840502-2            Terminal Block, screw contact                                                     
+J10   TB-840502-2       TB-840502-2       TB-840502-2            Terminal Block, screw contact                                                     
+J11   HDR-2X4           HDR-2X4           HDR-2X4                                                                                                  
+JP1   No Load           JPR-1X2           JPR-1X2                                                                                                  
+JP2   JPR-1X2           JPR-1X2           JPR-1X2                                                                                                  
+JP3   JPR-1X2           JPR-1X2           JPR-1X2                                                                                                  
+JP4   JPR-1X2           JPR-1X2           JPR-1X2                                                                                                  
+LD1   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD2   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD3   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD4   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD5   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD6   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD7   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LD8   LED-S0603         LED-S0603         D0603                  Discrete LED                                                                      
+LOGO1 CHIPKIT           CHIPKIT           CHIPKIT_LOGO           Microchip chipKIT Logo                                                            
+LOGO2 DIGILENT_INC-1000 DIGILENT_INC-1000 DIGILENT_URL_1000_LOGO                                                                                   
+LOGO3 WEEE-L            WEEE-L            WEEE_LOGO2             WEEE Symbol                                                                       
+LOGO4 ROHS-CHINA        ROHS-CHINA        ROHS_CHINA_LOGO        Chinese ROHS symbol logo                                                          
+Q1    NTHD4508NT1       NTHD4508NT1       CHIPFET                On-Semi Power MOFSET, 20V, 4.1A, Dual N-Channel                                   
+Q2    NTHD4508NT1       NTHD4508NT1       CHIPFET                On-Semi Power MOFSET, 20V, 4.1A, Dual N-Channel                                   
+Q3    BSS84DW           BSS84DW           SOT-363                Dual P-Channel Transisto, Diodes INC                                              
+R1    10k               RES-S0402S        R0402S                 Resistor                                                                          
+R2    10k               RES-S0402S        R0402S                 Resistor                                                                          
+R3    10k               RES-S0402S        R0402S                 Resistor                                                                          
+R4    10k               RES-S0402S        R0402S                 Resistor                                                                          
+R5    10k               RES-S0402S        R0402S                 Resistor                                                                          
+R6    10K               RES-S0402S        R0402S                 Resistor                                                                          
+R7    10K               RES-S0402S        R0402S                 Resistor                                                                          
+R8    10K               RES-S0402S        R0402S                 Resistor                                                                          
+R9    470               RES-S0402S        R0402S                 Resistor                                                                          
+R10   470               RES-S0402S        R0402S                 Resistor                                                                          
+R11   470               RES-S0402S        R0402S                 Resistor                                                                          
+R12   470               RES-S0402S        R0402S                 Resistor                                                                          
+R13   2.2K              RES-S0402S        R0402S                 Resistor                                                                          
+R14   2.2K              RES-S0402S        R0402S                 Resistor                                                                          
+R15   50                RES-S0402S        R0402S                 Resistor                                                                          
+R16   50                RES-S0402S        R0402S                 Resistor                                                                          
+R17   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R18   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R19   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R20   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R21   150               RES-S0402S        R0402S                 Resistor                                                                          
+R22   150               RES-S0402S        R0402S                 Resistor                                                                          
+R23   150               RES-S0402S        R0402S                 Resistor                                                                          
+R24   150               RES-S0402S        R0402S                 Resistor                                                                          
+R25   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R26   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R27   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R28   10K               RES-S0402S        R0402S                 Resistor                                                                          
+R29   470               RES-S0402S        R0402S                 Resistor                                                                          
+R30   470               RES-S0402S        R0402S                 Resistor                                                                          
+R31   470               RES-S0402S        R0402S                 Resistor                                                                          
+R32   470               RES-S0402S        R0402S                 Resistor                                                                          
+R33   390k              RES-S0402S        R0402S                 Resistor                                                                          
+R34   10k               RES-S0402S        R0402S                 Resistor                                                                          
+R35   10k               RES-S0402S        R0402S                 Resistor                                                                          
+R36   10k               RES-S0402S        R0402S                 Resistor                                                                          
+R37   10k               RES-S0402S        R0402S                 Resistor                                                                          
+R38   1K                RES-S0402S        R0402S                 Resistor                                                                          
+SW1   SW-10SP001        SW-10SP001        SW-10SP001             153-001: SPDT Subminiature Slide Switch                                           
+SW2   SW-10SP001        SW-10SP001        SW-10SP001             153-001: SPDT Subminiature Slide Switch                                           
+SW3   SW-10SP001        SW-10SP001        SW-10SP001             153-001: SPDT Subminiature Slide Switch                                           
+SW4   SW-10SP001        SW-10SP001        SW-10SP001             153-001: SPDT Subminiature Slide Switch                                           
+VR1   10K               POT-3352T         BOURNS-3352T                                                                                             
