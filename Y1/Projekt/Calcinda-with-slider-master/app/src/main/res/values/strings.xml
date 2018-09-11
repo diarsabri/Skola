@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">slider</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+
+    <string name="_plus">+</string>
+    <string name="_minus">&#8722;</string>
+    <string name="_mult">&#215;</string>
+    <string name="_div">&#247;</string>
+    <string name="_del">DEL</string>
+    <string name="_equal">=</string>
+    <string name="_dot">.</string>
+    <string name="_zero">0</string>
+    <string name="_clear">C</string>
+    <string name="_memplus">M+</string>
+    <string name="_mem">M</string>
+
+    <string name="_x">X</string>
+    <string name="_sol">f(x)=0</string>
+    <string name="_int">&#8747;</string>
+    <string name="_der">f\'(x)</string>
+    <string name="_sini">arcsin</string>
+    <string name="_cosi">arccos</string>
+    <string name="_tani">arctan</string>
+    <string name="_sin">sin</string>
+    <string name="_cos">cos</string>
+    <string name="_tan">tan</string>
+    <string name="_ln">ln</string>
+    <string name="_log">log</string>
+    <string name="_fac">!</string>
+
+    <string name="_pi">&#960;</string>
+    <string name="_e">&#8495;</string>
+
+    <string name="_pwr">^</string>
+    <string name="_lbracket">(</string>
+    <string name="_rbracket">)</string>
+    <string name="_sqrt">&#8730;</string>
+    <string name="_comma">,</string>
+
+</resources>
