@@ -1,0 +1,29 @@
+%max function
+T=@(t) max(generator(30 + t, 0));
+
+%funktion för nämnaren
+y_namnare=@(t) exp(-t.^2);
+%räkna ut nämnaren numeriskt med trapetsregeln
+namnare=@(h) (h/2)*(y_namnare(-5)+y_namnare(5)+2*sum(y_namnare(-5+(1:10/h-1)*h)));
+namnare(0.01)
+
+%täljaren
+y_numeriskt=@(t) exp(-t.^2).*T(t);
+
+%täljaren uträknat numeriskt med trapetsmetoden
+%numeriskt=@(h) (h/2)*(y_numeriskt(-5)+y_numeriskt(5)+2*sum(arrayfun(y_numeriskt, -5+(1:10/h-1)*h)));
+%räkna ut tid
+%t=cputime
+%numeriskt(0.4)
+%t1=cputime-t
+%Som ovan
+
+%räkna ut numeriskt med hjälp av simpsons
+%numerisk_sim=@(h) (h/3)*(y_numeriskt(-5)+y_numeriskt(5)+4*sum(arrayfun(y_numeriskt, -5+(0.5:5/h-0.5)*2*h))+2*sum(arrayfun(y_numeriskt, -5+(1:5/h-1)*2*h)));
+%tic();
+%numerisk_sim(2)
+%t2=toc();
+
+
+t1
+%t2
