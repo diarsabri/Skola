@@ -1,0 +1,18 @@
+Välkommen till Banken! (1)Saldo, (2)Uttag, (3)Insättning, (4)Byt språk, (5)Avsluta
+(1)Saldo, (2)Uttag, (3)Insättning, (4)Byt språk, (5)Avsluta
+Ange värde:
+Saldo:
+SEK
+Hej då
+Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Change language, (5)Exit
+(1)Balance, (2)Withdrawal, (3)Deposit, (4)Change language, (5)Exit
+Enter amount:
+Current balance is:
+dollars
+Good bye
+Καλώς ήρθατε στην τράπεζα! (1)υπόλοιπο, (2)Απόσυρση, (3)Κατάθεση, (4)άλλαξε γλώσσα, (5)Εξοδος
+(1)υπόλοιπο, (2)Απόσυρση, (3)Κατάθεση, (4)άλλαξε γλώσσα, (5)Εξοδος
+Το τρέχον υπόλοιπο είναι:
+Εισάγετε το ποσό:
+ευρώ
+Αντιο σας
