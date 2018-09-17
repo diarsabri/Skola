@@ -2,8 +2,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+//  sudo netstat -ntulp
+//  ss -tanp | grep 8989 | head -1 | sed 's_.*pid=\(.*\),.*_\1_' | xargs kill
+
 /**
- * @author Snilledata
+ * @author Diar Sabri
  */
 public class ATMClient {
     private static int connectionPort = 8989;
@@ -18,16 +21,13 @@ public class ATMClient {
                 String s = scanner.nextLine();
                 list.add(s);
             }
-            // for(int k = 0;k<list.size();k++){
-            // System.out.println("#"+k+" "+list.get(k).toString());
-            // }
+
             ArrayList<List<String>> langList = new ArrayList<List<String>>();
             for (int x = 0; x < list.size(); x += 6) {
                 int y = Math.min(x + 6, list.size());
                 langList.add(list.subList(x, y));
             }
 
-            // System.out.println("langList: "+langList.get(i));
             scanner.close();
             return langList.get(i);
 
@@ -64,7 +64,6 @@ public class ATMClient {
 
         Scanner scanner = new Scanner(System.in);
         List list = changeLang2(1); // English as initial language
-        String print = "";
         int userInput;
         int number;
 
@@ -74,45 +73,43 @@ public class ATMClient {
 
         int menuOption = scanner.nextInt();
         userInput = menuOption;
-        int toServer,fromServer;
+        int toServer, fromServer;
 
-
-
-        while (true) {
+        A: while (true) {
             if (menuOption == 5) { // break
-                break;
+                System.out.println(list.get(5));
+                out.println(0);
+                break A;
             } else if (menuOption == 4) { // change language
                 System.out.println("Choose language by entering digit: (0)Swe, (1)Eng, (2)Gre");
                 userInput = scanner.nextInt(); // choosing language
                 list = changeLang2(userInput); // sets language
                 System.out.println(list.get(0)); // prints welcome message in specified language
+                System.out.print("> ");
+
 
                 menuOption = scanner.nextInt(); // next menuoption
                 userInput = menuOption; // next menuoption
             } else if (menuOption <= 0 || menuOption > 5) {
                 System.out.println("Invalid input.");
                 System.out.println("Enter a digit from 1-5");
-                
+
+                System.out.println(list.get(1));
+                System.out.print("> ");
                 menuOption = scanner.nextInt(); // next menuoption
                 userInput = menuOption; // next menuoption
-            } else { // everything else here
+            } else if (menuOption > 0 && (menuOption != 4 && menuOption != 5)) { // everything else here
                 toServer = menuOption;
                 out.println(toServer);
                 fromServer = Integer.parseInt(in.readLine());
 
-                A: while (true) {
-
-
+                B: while (true) {
 
                     if (fromServer == 0) {
-                        break A;
-                    } else if (fromServer == -1) {  //user enters value
-                        number = scanner.nextInt();
-                        System.out.println(number);
-                        fromServer = Integer.parseInt(in.readLine());
-                    } else if (fromServer == -2) {  //value of users balance
+                        break B;
+                    } else if (fromServer == -2) { // value of users balance
                         number = Integer.parseInt(in.readLine());
-                        System.out.println(number+ " " + list.get(4).toString());
+                        System.out.println(number + " " + list.get(4).toString());
                         fromServer = Integer.parseInt(in.readLine());
                     } else if (fromServer == -3) {
                         number = scanner.nextInt();
@@ -122,12 +119,16 @@ public class ATMClient {
                         System.out.println(list.get(fromServer));
                         fromServer = Integer.parseInt(in.readLine());
                     }
+
                 }
+                System.out.println(list.get(1));
+                System.out.print("> ");
+                menuOption = scanner.nextInt();
+                toServer = menuOption;
             }
-            System.out.println(list.get(1));
-            menuOption = scanner.nextInt();
+
         }
-        
+
         scanner.close();
         out.close();
         in.close();
