@@ -67,6 +67,40 @@ public class ATMClient {
         int userInput;
         int number;
 
+        long cardNumber, pin;
+        long validUser;
+
+        System.out.println("Enter card number");
+        cardNumber = scanner.nextLong();
+        System.out.println("Enter pin");
+        pin = scanner.nextLong();
+
+        out.println(cardNumber);
+        out.println(pin);
+        validUser = Long.parseLong(in.readLine());
+
+        if (validUser == 1) {
+            System.out.println("Successful login! \n");
+        } else {
+
+            V1: while (true) {
+                System.out.println("Invalid input, try again.");
+                System.out.println("Enter card number");
+                cardNumber = scanner.nextLong();
+                System.out.println("Enter pin");
+                pin = scanner.nextLong();
+
+                out.println(cardNumber);
+                out.println(pin);
+                validUser = Long.parseLong(in.readLine());
+
+                if (validUser == 1) {
+                    System.out.println("Successful login!");
+                    break V1;
+                }
+            }
+        }
+
         System.out.println("Contacting bank ... ");
         System.out.println(list.get(1));
         System.out.print("> ");
@@ -86,7 +120,6 @@ public class ATMClient {
                 list = changeLang2(userInput); // sets language
                 System.out.println(list.get(0)); // prints welcome message in specified language
                 System.out.print("> ");
-
 
                 menuOption = scanner.nextInt(); // next menuoption
                 userInput = menuOption; // next menuoption
