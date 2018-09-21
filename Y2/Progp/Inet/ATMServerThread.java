@@ -113,10 +113,16 @@ public class ATMServerThread extends Thread {
 
                     userInput = Integer.parseInt(in.readLine());
 
+                    balance = userBalance(cardNumber, 0);
+
                     if (menuOption == 2) {
-                        balance = userBalance(cardNumber,-userInput);
+                        if (balance < userInput) {
+                            out.println(-4);
+                        } else if (balance >= userInput) {
+                            balance = userBalance(cardNumber, -userInput);
+                        }
                     } else if (menuOption == 3) {
-                        balance = userBalance(cardNumber,userInput);
+                        balance = userBalance(cardNumber, userInput);
                     }
 
                     out.println(3);

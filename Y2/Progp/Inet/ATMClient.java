@@ -11,7 +11,7 @@ import java.util.*;
 public class ATMClient {
     private static int connectionPort = 8989;
 
-    static public List changeLang2(int i) {
+    public static List changeLang2(int i) {
         try {
             File file = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/lang.txt");
             Scanner scanner = new Scanner(file);
@@ -23,8 +23,8 @@ public class ATMClient {
             }
 
             ArrayList<List<String>> langList = new ArrayList<List<String>>();
-            for (int x = 0; x < list.size(); x += 6) {
-                int y = Math.min(x + 6, list.size());
+            for (int x = 0; x < list.size(); x += 9) {
+                int y = Math.min(x + 9, list.size());
                 langList.add(list.subList(x, y));
             }
 
@@ -35,6 +35,65 @@ public class ATMClient {
             System.out.println("No such file");
         }
         return null;
+    }
+
+    public static List availableLang() {
+        try {
+            File file = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/lang.txt");
+            Scanner scanner = new Scanner(file);
+            ArrayList<String> list = new ArrayList<>();
+
+            while (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                list.add(s);
+            }
+
+            ArrayList<List<String>> langList = new ArrayList<List<String>>();
+            for (int x = 0; x < list.size(); x += 9) {
+                int y = Math.min(x + 9, list.size());
+                langList.add(list.subList(x, y));
+            }
+
+            scanner.close();
+
+            ArrayList<String> langs = new ArrayList<String>();
+
+            for (int i = 0; i < langList.size(); i++) {
+                langs.add(langList.get(i).get(8));
+            }
+
+            return langs;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No such file");
+        }
+        return null;
+    }
+
+    public static long readLong(Scanner scanner) {
+        try {
+            String x = scanner.nextLine().trim();
+            long res = Long.valueOf(x);
+            return res;
+        } catch (InputMismatchException e) {
+            System.out.println("Digits only");
+        } catch (NumberFormatException e) {
+            System.out.println("Digits only");
+        }
+        return 0;
+    }
+
+    public static int readInt(Scanner scanner) {
+        try {
+            String x = scanner.nextLine().trim();
+            int res = Integer.valueOf(x);
+            return res;
+        } catch (InputMismatchException e) {
+            System.out.println("Digits only");
+        } catch (NumberFormatException e) {
+            System.out.println("Digits only");
+        }
+        return 0;
     }
 
     public static void main(String[] args) throws IOException {
@@ -64,6 +123,7 @@ public class ATMClient {
 
         Scanner scanner = new Scanner(System.in);
         List list = changeLang2(1); // English as initial language
+        List langs = availableLang();
         int userInput;
         int number;
 
@@ -71,9 +131,9 @@ public class ATMClient {
         long validUser;
 
         System.out.println("Enter card number");
-        cardNumber = scanner.nextLong();
+        cardNumber = readLong(scanner);
         System.out.println("Enter pin");
-        pin = scanner.nextLong();
+        pin = readLong(scanner);
 
         out.println(cardNumber);
         out.println(pin);
@@ -86,9 +146,9 @@ public class ATMClient {
             V1: while (true) {
                 System.out.println("Invalid input, try again.");
                 System.out.println("Enter card number");
-                cardNumber = scanner.nextLong();
+                cardNumber = readLong(scanner);
                 System.out.println("Enter pin");
-                pin = scanner.nextLong();
+                pin = readLong(scanner);
 
                 out.println(cardNumber);
                 out.println(pin);
@@ -105,7 +165,7 @@ public class ATMClient {
         System.out.println(list.get(1));
         System.out.print("> ");
 
-        int menuOption = scanner.nextInt();
+        int menuOption = readInt(scanner);
         userInput = menuOption;
         int toServer, fromServer;
 
@@ -115,21 +175,24 @@ public class ATMClient {
                 out.println(0);
                 break A;
             } else if (menuOption == 4) { // change language
-                System.out.println("Choose language by entering digit: (0)Swe, (1)Eng, (2)Gre");
-                userInput = scanner.nextInt(); // choosing language
+                System.out.println("Choose language by entering digit");
+                for (int i = 0;i<langs.size();i++) {
+                    System.out.println("("+i+")"+" "+langs.get(i));
+                }
+                System.out.print("> ");
+                userInput = readInt(scanner); // choosing language
                 list = changeLang2(userInput); // sets language
                 System.out.println(list.get(0)); // prints welcome message in specified language
                 System.out.print("> ");
 
-                menuOption = scanner.nextInt(); // next menuoption
+                menuOption = readInt(scanner); // next menuoption
                 userInput = menuOption; // next menuoption
             } else if (menuOption <= 0 || menuOption > 5) {
-                System.out.println("Invalid input.");
-                System.out.println("Enter a digit from 1-5");
+                System.out.println(list.get(6));
 
                 System.out.println(list.get(1));
                 System.out.print("> ");
-                menuOption = scanner.nextInt(); // next menuoption
+                menuOption = readInt(scanner); // next menuoption
                 userInput = menuOption; // next menuoption
             } else if (menuOption > 0 && (menuOption != 4 && menuOption != 5)) { // everything else here
                 toServer = menuOption;
@@ -145,8 +208,12 @@ public class ATMClient {
                         System.out.println(number + " " + list.get(4).toString());
                         fromServer = Integer.parseInt(in.readLine());
                     } else if (fromServer == -3) {
-                        number = scanner.nextInt();
+                        number = readInt(scanner);
                         out.println(number);
+                        fromServer = Integer.parseInt(in.readLine());
+                    } else if (fromServer == -4) {
+                        System.out.println(list.get(7));
+
                         fromServer = Integer.parseInt(in.readLine());
                     } else if (fromServer > 0) {
                         System.out.println(list.get(fromServer));
@@ -156,7 +223,7 @@ public class ATMClient {
                 }
                 System.out.println(list.get(1));
                 System.out.print("> ");
-                menuOption = scanner.nextInt();
+                menuOption = readInt(scanner);
                 toServer = menuOption;
             }
 

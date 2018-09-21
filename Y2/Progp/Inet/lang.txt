@@ -4,15 +4,24 @@ Ange värde:
 Saldo:
 SEK
 Hej då
+Ogiltig inmatning. Tryck i en siffra från 1-5.
+Inte tillräckligt med pengar
+SWE
 Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Change language, (5)Exit
 (1)Balance, (2)Withdrawal, (3)Deposit, (4)Change language, (5)Exit
 Enter amount:
 Current balance is:
 dollars
 Good bye
+Invalid input. Enter a digit from 1-5
+Insufficient funds
+ENG
 Καλώς ήρθατε στην τράπεζα! (1)υπόλοιπο, (2)Απόσυρση, (3)Κατάθεση, (4)άλλαξε γλώσσα, (5)Εξοδος
 (1)υπόλοιπο, (2)Απόσυρση, (3)Κατάθεση, (4)άλλαξε γλώσσα, (5)Εξοδος
 Το τρέχον υπόλοιπο είναι:
 Εισάγετε το ποσό:
 ευρώ
 Αντιο σας
+μη έγκυρη είσοδο. Καταχωρίστε ένα ψηφίο από 1-5
+Ανεπαρκείς πόροι
+GRE
