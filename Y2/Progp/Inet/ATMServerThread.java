@@ -3,7 +3,7 @@ import java.net.Socket;
 import java.util.*;
 
 /**
- * @author Viebrapadata
+ * @author Diar Sabri & Kevin Nordwall
  */
 public class ATMServerThread extends Thread {
     private Socket socket = null;

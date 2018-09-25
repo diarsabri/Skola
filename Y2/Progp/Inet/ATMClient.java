@@ -2,11 +2,16 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+// https://cloud.smartdraw.com/share.aspx/?pubDocShare=BE716D12155D08BAC98179A718176CE6B9E
+
 //  sudo netstat -ntulp
 //  ss -tanp | grep 8989 | head -1 | sed 's_.*pid=\(.*\),.*_\1_' | xargs kill
 
+// To run:  java ATMServer &
+//          java ATMClient 127.0.0.1
+
 /**
- * @author Diar Sabri
+ * @author Diar Sabri & Kevin Nordwall
  */
 public class ATMClient {
     private static int connectionPort = 8989;
