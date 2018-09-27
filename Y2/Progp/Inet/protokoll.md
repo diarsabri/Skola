@@ -34,6 +34,20 @@ Varje input kunden skickar in har vi två funktioner för som läser in stränge
 
 På serversidan inleds det på samma sätt med kortnummer och pinkod med en slinga som tar input från klienten och kollar mot "databasen" ifall kortnummret och pinkoden överensstämmer. Den gör detta tills en inloggning lyckas. Då det är klart går server, likt klienten, in i en slinga som inte avslutas förrän kunden loggar ut. Slingan läser in menyval som kunden gör. Det är tre koll som behöver göras, 1 - saldo, 2 - uttag, 3 - insättning. Varje alternativ går genom en viss kommunikation med den inre slingan i klienten och avslutas till slut med en nolla som indikerar att det menyvalet är klart och då kan klienten återigen skriva ut alternativen 1-5 igen. Då servern behöver skicka värden till klienten meddelar servern klienten detta med hjälp av "koderna" vi tog upp innan (-2,-3,-4 eller avslutningskoden 0). Då menyalternativ 1-3 alla behöver läsa/skriva till kundens saldo görs detta på serversidan med hjälp av en funktion. Funktionen läser in kundens fil (kortnummer) och läser/skriver rad två på filen.
 
+### Rutiner för menyval 1-3
+
+    1: Saldo                                    |   2 eller 3
+                                                |
+    Client                      Server          |   Client                      Server
+    1 ->                                        |   2/3 ->
+    Printar rad 3               <- 3            |   Printar rad 2               <- 2
+    Väntar på värde             <- -2           |   Läser in input              <- -3
+    Skriver ut saldo            <- saldo        |   input ->                    Räknar om användares nya saldo, om det finns tillräckigt med pengar. Annars -4
+    Slut på rutin, bryt         <- 0            |   Printar rad 3               <- 3
+                                                |   Väntar på värde             <- -2
+                                                |   Skriver ut saldo            <- saldo
+                                                |   Slut på rutin, bryt         <- 0
+
 ## State diagram
 
 Följande bild beskriver i vilka tillstånd programmet kan vara i. Vi börjar i ifylld cirkel och avslutar i halvt ifylld cirkel.

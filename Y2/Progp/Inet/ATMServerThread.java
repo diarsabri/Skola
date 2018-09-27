@@ -15,6 +15,10 @@ public class ATMServerThread extends Thread {
         this.socket = socket;
     }
 
+    /*
+    Function for validating user, takes cardnumber and pin as input.
+    Reads the file with that cardnumber and checks to see if the pin code is correct. returns 0 or 1.
+    */
     private long validateUser(long cardNumber, long pin) {
         try {
             File file = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/Users/" + cardNumber + ".txt");
@@ -36,6 +40,9 @@ public class ATMServerThread extends Thread {
         return 0;
     }
 
+    /*
+    Reads user balance. Takes another input that is for adding/subtracting funds.
+    */
     private int userBalance(long cardNumber, int difference) throws IOException {
         try {
             File fileOld = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/Users/" + cardNumber + ".txt");
@@ -75,12 +82,13 @@ public class ATMServerThread extends Thread {
             long cardNumber, pin;
             long validUser;
 
+            // Initial login attempt
             cardNumber = Long.parseLong(in.readLine());
             pin = Long.parseLong(in.readLine());
             validUser = validateUser(cardNumber, pin);
             if (validUser == 1) {
                 out.println(validUser);
-            } else if (validUser == 0) {
+            } else if (validUser == 0) {    // enters while loop if not valid, repeats until input is valid
                 out.println(validUser);
                 V2: while (true) {
                     cardNumber = Long.parseLong(in.readLine());
@@ -95,19 +103,21 @@ public class ATMServerThread extends Thread {
                 }
             }
 
+            //successfull login
             C: while (true) {
+                // menuoption 1,2,3.
                 menuOption = Integer.parseInt(in.readLine());
 
                 if (menuOption == 0) {
                     break C;
-                } else if (menuOption == 1) {
+                } else if (menuOption == 1) {   // just prints user current balance. Uses code -2 to client.
                     out.println(3);
                     out.println(-2); // tells that a value is incoming
                     balance = userBalance(cardNumber, 0);
                     out.println(balance);
 
                     out.println(0);
-                } else if (menuOption == 2 || menuOption == 3) {
+                } else if (menuOption == 2 || menuOption == 3) {    // withdraw/insert. Uses codes -3 and -2 to client.
                     out.println(2);
                     out.println(-3);
 

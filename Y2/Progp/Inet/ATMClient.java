@@ -16,6 +16,11 @@ import java.util.*;
 public class ATMClient {
     private static int connectionPort = 8989;
 
+    /*
+     * Function that changes the current language in the client. Takes an integer
+     * representing which the desired language is from the choices. Returns a list
+     * of (of strings) that can be printed.
+     */
     public static List changeLang2(int i) {
         try {
             File file = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/lang.txt");
@@ -42,6 +47,9 @@ public class ATMClient {
         return null;
     }
 
+    /*
+     * Returns a list of the available languages, takes no integers
+     */
     public static List availableLang() {
         try {
             File file = new File("/home/diar/Desktop/Skola/Y2/Progp/Inet/lang.txt");
@@ -75,6 +83,9 @@ public class ATMClient {
         return null;
     }
 
+    /*
+     * Reads long or int (below) from scanner, along with error handling.
+     */
     public static long readLong(Scanner scanner) {
         try {
             String x = scanner.nextLine().trim();
@@ -128,13 +139,14 @@ public class ATMClient {
 
         Scanner scanner = new Scanner(System.in);
         List list = changeLang2(1); // English as initial language
-        List langs = availableLang();
+        List langs = availableLang(); // available languages
         int userInput;
         int number;
 
         long cardNumber, pin;
-        long validUser;
+        long validUser; // basically used as a boolean
 
+        // Initial try for logging in
         System.out.println("Enter card number");
         cardNumber = readLong(scanner);
         System.out.println("Enter pin");
@@ -146,7 +158,7 @@ public class ATMClient {
 
         if (validUser == 1) {
             System.out.println("Successful login! \n");
-        } else {
+        } else { // if first try fails, enter while loop until login succeeds
 
             V1: while (true) {
                 System.out.println("Invalid input, try again.");
@@ -170,10 +182,12 @@ public class ATMClient {
         System.out.println(list.get(1));
         System.out.print("> ");
 
+        // initial menu choice
         int menuOption = readInt(scanner);
         userInput = menuOption;
         int toServer, fromServer;
 
+        // enter while loop while user is logged in (doesn't exit).
         A: while (true) {
             if (menuOption == 5) { // break
                 System.out.println(list.get(5));
@@ -181,8 +195,8 @@ public class ATMClient {
                 break A;
             } else if (menuOption == 4) { // change language
                 System.out.println("Choose language by entering digit");
-                for (int i = 0;i<langs.size();i++) {
-                    System.out.println("("+i+")"+" "+langs.get(i));
+                for (int i = 0; i < langs.size(); i++) {
+                    System.out.println("(" + i + ")" + " " + langs.get(i));
                 }
                 System.out.print("> ");
                 userInput = readInt(scanner); // choosing language
@@ -199,33 +213,34 @@ public class ATMClient {
                 System.out.print("> ");
                 menuOption = readInt(scanner); // next menuoption
                 userInput = menuOption; // next menuoption
-            } else if (menuOption > 0 && (menuOption != 4 && menuOption != 5)) { // everything else here
+            } else if (menuOption > 0 && (menuOption != 4 && menuOption != 5)) { // everything else here, currently choices 1,2,3
                 toServer = menuOption;
                 out.println(toServer);
-                fromServer = Integer.parseInt(in.readLine());
+                fromServer = Integer.parseInt(in.readLine()); // initial response from server
 
-                B: while (true) {
+                B: while (true) { // while response from server != 0 (end of routine for menu option)
 
                     if (fromServer == 0) {
                         break B;
-                    } else if (fromServer == -2) { // value of users balance
+                    } else if (fromServer == -2) { // code -2 for printing user balance
                         number = Integer.parseInt(in.readLine());
                         System.out.println(number + " " + list.get(4).toString());
                         fromServer = Integer.parseInt(in.readLine());
-                    } else if (fromServer == -3) {
+                    } else if (fromServer == -3) { // code -3 for reading user input (either for witdrawing or inserting)
                         number = readInt(scanner);
                         out.println(number);
                         fromServer = Integer.parseInt(in.readLine());
-                    } else if (fromServer == -4) {
+                    } else if (fromServer == -4) { // insufficient funds code
                         System.out.println(list.get(7));
 
                         fromServer = Integer.parseInt(in.readLine());
-                    } else if (fromServer > 0) {
+                    } else if (fromServer > 0) { // everything else here (stuff that gets printed)
                         System.out.println(list.get(fromServer));
                         fromServer = Integer.parseInt(in.readLine());
                     }
 
                 }
+                // offer new menu choices and repeat process
                 System.out.println(list.get(1));
                 System.out.print("> ");
                 menuOption = readInt(scanner);
