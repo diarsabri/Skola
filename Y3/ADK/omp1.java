@@ -20,28 +20,21 @@ public class omp1 {
             words[i] = scanner.nextInt();
         }
 
-
-
         System.out.println("\n");
 
         int linelength = 0;
         int lines = 1;
 
         for (int i = 0; i < n; i++) {
-            linelength += words[i] +1;
+            linelength += words[i] + 1;
 
-            if (linelength -1 > len) {
+            if (linelength - 1 > len) {
                 linelength = words[i];
                 lines++;
             }
 
-            System.out.println(linelength+ " " + lines);
+            System.out.println(linelength + " " + lines);
         }
- 
-
-
-
-        
 
         scanner.close();
 
@@ -50,14 +43,10 @@ public class omp1 {
     }
 }
 
-
 /*
-
-n=10, len=25,
-
-w1=17,  w2=4,                22
-w3=7 ,  w4=3, w5=13          25
-w6=2 ,  w7=9, w8=2,  w9=7    24
-word10=6                    6
-
-*/
+ * 
+ * n=10, len=25,
+ * 
+ * w1=17, w2=4, 22 w3=7 , w4=3, w5=13 25 w6=2 , w7=9, w8=2, w9=7 24 word10=6 6
+ * 
+ */
