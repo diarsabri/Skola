@@ -12,31 +12,30 @@ public class Square {
             matrix[size / 2 - 1 + xx][size / 2 - 1 + yy] = curr;
             matrix[size / 2 - 1 + xx][size / 2 + yy] = curr;
             matrix[size / 2 + xx][size / 2 - 1 + yy] = curr;
-            curr++;
 
             break;
         case 2:
             matrix[size / 2 - 1 + xx][size / 2 + yy] = curr;
             matrix[size / 2 - 1 + xx][size / 2 - 1 + yy] = curr;
             matrix[size / 2 + xx][size / 2 + yy] = curr;
-            curr++;
 
             break;
         case 3:
             matrix[size / 2 + xx][size / 2 + yy] = curr;
             matrix[size / 2 - 1 + xx][size / 2 - 1 + yy] = curr;
             matrix[size / 2 + xx][size / 2 - 1 + yy] = curr;
-            curr++;
 
             break;
         case 4:
             matrix[size / 2 + xx][size / 2 + yy] = curr;
             matrix[size / 2 + xx][size / 2 - 1 + yy] = curr;
             matrix[size / 2 - 1 + xx][size / 2 + yy] = curr;
-            curr++;
 
             break;
         }
+
+        curr++;
+
     }
 
     // Not used, changed approach
@@ -83,27 +82,25 @@ public class Square {
             matrix[xx][yy + 1] = curr;
             matrix[xx + 1][yy] = curr;
             matrix[xx + 1][yy + 1] = curr;
-            curr++;
 
         } else if (matrix[xx][yy + 1] != 0) {
             matrix[xx][yy] = curr;
             matrix[xx + 1][yy] = curr;
             matrix[xx + 1][yy + 1] = curr;
-            curr++;
 
         } else if (matrix[xx + 1][yy] != 0) {
             matrix[xx][yy] = curr;
             matrix[xx][yy + 1] = curr;
             matrix[xx + 1][yy + 1] = curr;
-            curr++;
 
         } else if (matrix[xx + 1][yy + 1] != 0) {
             matrix[xx][yy] = curr;
             matrix[xx][yy + 1] = curr;
             matrix[xx + 1][yy] = curr;
-            curr++;
 
         }
+
+        curr++;
     }
 
     private static void tile(int size, int xx, int yy, int q) {
