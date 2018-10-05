@@ -2,22 +2,20 @@ import re
 from sys import stdin
 from token_class import Token
 
+
 class Lexer:
-    
-    def __init__(self): 
+
+    def __init__(self):
         self.current_token = 0
         self._regex = r"(?i)FORW(\s|%.*\n)|BACK(\s|%.*\n)|RIGHT(\s|%.*\n)|LEFT(\s|%.*\n)|DOWN|UP|REP(\s|%.*\n)|COLOR(\s|%.*\n)|%.*\n|\.|\"|#[A-Fa-f0-9]{6}|[1-9]\d*(\s|%.*\n|\.)|\n|\040|\t"
         self._final_string = self.input_to_string()
         self.token_list = self.lexer()
 
-
-
-
     def input_to_string(self):
         final_string = ""
         for row in stdin:
             final_string = final_string + row
-    
+
         # final_string = "% Det här är en kommentar\n% Nu ritar vi en kvadrat\nDOWN.\nFORW 1. LEFT 90.\nFORW 1. LEFT 90.\nFORW 1. LEFT 90.\nFORW 1. LEFT 90."
         return final_string
 
@@ -80,7 +78,7 @@ class Lexer:
                 for i in match.group():
                     if i.isdigit():
                         s = s + i
-                token_list.append(Token("NUM",currentRow,int(s)))
+                token_list.append(Token("NUM", currentRow, int(s)))
                 if i == "%":
                     currentRow += 1
                 elif i == ".":
@@ -90,13 +88,12 @@ class Lexer:
             inputPos = match.end()
 
         if inputPos != len(self._final_string):
-            token_list.append(Token("ERROR",currentRow))
+            token_list.append(Token("ERROR", currentRow))
 
-        token_list.append(Token("EOF",currentRow))
-
+        token_list.append(Token("EOF", currentRow))
 
         return token_list
-    
+
     def peek(self):
         return self.token_list[self.current_token]
 
@@ -116,7 +113,7 @@ class Lexer:
             return True
         else:
             return False
-    
+
     def end_of_file(self):
         if self.token_type() == "EOF":
             return True
@@ -127,7 +124,8 @@ class Lexer:
 def main():
     lex = Lexer()
     for i in lex.token_list:
-        print(i.token,i.row)
+        print(i.token, i.row)
+
 
 if __name__ == '__main__':
     main()

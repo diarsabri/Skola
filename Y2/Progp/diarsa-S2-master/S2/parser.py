@@ -3,11 +3,13 @@ from wrongsyntax import WrongSyntax
 import sys
 sys.setrecursionlimit(400000)
 
+
 class ParseTree:
     def __init__(self):
         self.inst = None
         self.next = None
         self.down = None
+
 
 class Parser:
 
@@ -18,7 +20,6 @@ class Parser:
         if eof.token != "EOF":
             raise WrongSyntax(self.lex.get_last().row)
 
-
     def parse(self):
         if self.lex.end_symbol():
             parse = self.instructions()
@@ -27,7 +28,7 @@ class Parser:
             return parse
         elif self.lex.token_type() == "ERROR":
             raise WrongSyntax(self.lex.get().row)
-        
+
     def instructions(self):
         p = ParseTree()
         if self.lex.token_type() == "FORW" or self.lex.token_type() == "BACK":
@@ -47,7 +48,7 @@ class Parser:
                         else:
                             not_dot = self.lex.get()
                             raise WrongSyntax(not_dot.row)
-                        
+
                 else:
                     not_num = self.lex.get()
                     raise WrongSyntax(not_num.row)
@@ -118,7 +119,7 @@ class Parser:
             else:
                 if self.lex.token_type() == "NUM":
                     num = self.lex.get()
-                    p.inst = Rep(token,num)
+                    p.inst = Rep(token, num)
                     if self.lex.token_type() == "QUOTE":
                         quote = self.lex.get()
                         p.down = self.parse()
@@ -140,7 +141,7 @@ class Parser:
                 else:
                     not_num = self.lex.get()
                     raise WrongSyntax(not_num.row)
-        
+
         else:
             if self.lex.end_of_file():
                 raise WrongSyntax(self.lex.get_last().row)

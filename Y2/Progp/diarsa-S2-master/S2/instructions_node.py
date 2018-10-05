@@ -1,5 +1,6 @@
 from leonardo import *
 
+
 class Move:
 
     def __init__(self, token, num):
@@ -7,7 +8,7 @@ class Move:
         self.num = num
 
     def evaluate(self, leo):
-        return leo.change_position(self.token.token,self.num.data)
+        return leo.change_position(self.token.token, self.num.data)
 
 
 class Turn:
@@ -18,9 +19,7 @@ class Turn:
 
     def evaluate(self, leo):
         return leo.change_angle(self.token.token, self.num.data)
-        
 
-        
 
 class Color:
 
@@ -30,7 +29,7 @@ class Color:
 
     def evaluate(self, leo):
         return leo.change_color(self.hex_code)
-        
+
 
 class Pen:
 
@@ -39,6 +38,7 @@ class Pen:
 
     def evaluate(self, leo):
         return leo.change_pen_mode(self.token.token)
+
 
 class Rep:
 
