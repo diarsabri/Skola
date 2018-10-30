@@ -1,7 +1,11 @@
-<Instruktion> ::= <Move> | <Turn> | <Color> | <Rep>
-<Move> ::= ([Ff][Oo][Rr][Ww] | [Bb][Aa][Cc][Kk]) <Num>
-<Turn> ::= ([Rr][Ii][Gg][Hh][Tt] | [Ll][Ee][Ff][Tt]) <Num>
-<Color> ::= ([Cc][Oo][Ll][Oo][Rr]) <Hex>
+<Start> ::= <Instruction> | <Instruction> <Start>
+<Instruktion> ::= <Move> | <Turn> | <Color> | <Rep> | <Up> | <Down>
+<Move> ::= ([Ff][Oo][Rr][Ww] | [Bb][Aa][Cc][Kk]) <Num> <Dot>
+<Turn> ::= ([Rr][Ii][Gg][Hh][Tt] | [Ll][Ee][Ff][Tt]) <Num> <Dot>
+<Color> ::= ([Cc][Oo][Ll][Oo][Rr]) <Hex> <Dot>
 <Rep> ::= ([Rr][Ee][Pp]) <Num> (<Instruktion> | \” <Instruktion> \”)
+<Up> ::= ([Uu][Pp]) <Dot>
+<Down> ::= ([Dd][Oo][Ww][Nn]) <Dot>
 <Num> ::= [1-9][0-9]*
 <Hex> ::= #[A-Fa-f0-9]{6}
+<Dot> ::= .

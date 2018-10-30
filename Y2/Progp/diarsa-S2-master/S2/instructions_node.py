@@ -1,6 +1,3 @@
-from leonardo import *
-
-
 class Move:
 
     def __init__(self, token, num):

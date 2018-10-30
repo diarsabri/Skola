@@ -1,5 +1,6 @@
 import re
 from sys import stdin
+
 from token_class import Token
 
 
@@ -12,6 +13,11 @@ class Lexer:
         self.token_list = self.lexer()
 
     def input_to_string(self):
+        """
+        Läser från stdin, vilket är kommandona som ska utföras
+        :return: String
+        """
+
         final_string = ""
         for row in stdin:
             final_string = final_string + row
@@ -20,77 +26,81 @@ class Lexer:
         return final_string
 
     def lexer(self):
+        """
+        Bryter ned strängen med regex och skapar Tokens av de alla olika kommandosarna.
+        :return: List of Tokens
+        """
         token_list = []
         matches = re.finditer(self._regex, self._final_string)
-        inputPos = 0
-        currentRow = 1
+        input_pos = 0
+        current_row = 1
 
         for match in matches:
             # print(match)
-            if match.start() != inputPos:
-                token_list.append(Token("ERROR", currentRow))
+            if match.start() != input_pos:
+                token_list.append(Token("ERROR", current_row))
             if match.group().upper() == "FORW\n" or match.group().upper()[0:5] == "FORW%":
-                token_list.append(Token("FORW", currentRow))
-                currentRow += 1
+                token_list.append(Token("FORW", current_row))
+                current_row += 1
             elif match.group().upper() == "FORW" or match.group().upper() == "FORW " or match.group().upper() == "FORW\t":
-                token_list.append(Token("FORW", currentRow))
+                token_list.append(Token("FORW", current_row))
             elif match.group().upper() == "BACK\n" or match.group().upper()[0:5] == "BACK%":
-                token_list.append(Token("BACK", currentRow))
-                currentRow += 1
+                token_list.append(Token("BACK", current_row))
+                current_row += 1
             elif match.group().upper() == "BACK" or match.group().upper() == "BACK " or match.group().upper() == "BACK\t":
-                token_list.append(Token("BACK", currentRow))
+                token_list.append(Token("BACK", current_row))
             elif match.group().upper() == "RIGHT\n" or match.group().upper()[0:6] == "RIGHT%":
-                token_list.append(Token("RIGHT", currentRow))
-                currentRow += 1
+                token_list.append(Token("RIGHT", current_row))
+                current_row += 1
             elif match.group().upper() == "RIGHT" or match.group().upper() == "RIGHT " or match.group().upper() == "RIGHT\t":
-                token_list.append(Token("RIGHT", currentRow))
+                token_list.append(Token("RIGHT", current_row))
             elif match.group().upper() == "LEFT\n" or match.group().upper()[0:5] == "LEFT%":
-                token_list.append(Token("LEFT", currentRow))
-                currentRow += 1
+                token_list.append(Token("LEFT", current_row))
+                current_row += 1
             elif match.group().upper() == "LEFT" or match.group().upper() == "LEFT " or match.group().upper() == "LEFT\t":
-                token_list.append(Token("LEFT", currentRow))
+                token_list.append(Token("LEFT", current_row))
             elif match.group().upper() == "COLOR\n" or match.group().upper()[0:6] == "COLOR%":
-                token_list.append(Token("COLOR", currentRow))
-                currentRow += 1
+                token_list.append(Token("COLOR", current_row))
+                current_row += 1
             elif match.group().upper() == "COLOR" or match.group().upper() == "COLOR " or match.group().upper() == "COLOR\t":
-                token_list.append(Token("COLOR", currentRow))
+                token_list.append(Token("COLOR", current_row))
             elif match.group().upper() == "REP\n" or match.group().upper()[0:4] == "REP%":
-                token_list.append(Token("REP", currentRow))
-                currentRow += 1
+                token_list.append(Token("REP", current_row))
+                current_row += 1
             elif match.group().upper() == "REP" or match.group().upper() == "REP " or match.group().upper() == "REP\t":
-                token_list.append(Token("REP", currentRow))
+                token_list.append(Token("REP", current_row))
             elif match.group().upper() == "DOWN":
-                token_list.append(Token("DOWN", currentRow))
+                token_list.append(Token("DOWN", current_row))
             elif match.group().upper() == "UP":
-                token_list.append(Token("UP", currentRow))
+                token_list.append(Token("UP", current_row))
             elif match.group()[0] == "%":
-                currentRow += 1
+                current_row += 1
             elif match.group() == ".":
-                token_list.append(Token("DOT", currentRow))
+                token_list.append(Token("DOT", current_row))
             elif match.group() == "\"":
-                token_list.append(Token("QUOTE", currentRow))
+                token_list.append(Token("QUOTE", current_row))
             elif match.group()[0] == "#":
-                token_list.append(Token("HEX", currentRow, match.group()))
+                token_list.append(Token("HEX", current_row, match.group()))
             elif match.group() == "\n":
-                currentRow += 1
+                current_row += 1
             elif match.group()[0].isdigit() and match.group()[0] != "0":
                 s = ""
                 for i in match.group():
                     if i.isdigit():
                         s = s + i
-                token_list.append(Token("NUM", currentRow, int(s)))
+                token_list.append(Token("NUM", current_row, int(s)))
                 if i == "%":
-                    currentRow += 1
+                    current_row += 1
                 elif i == ".":
-                    token_list.append(Token("DOT", currentRow))
+                    token_list.append(Token("DOT", current_row))
                 elif i == "\n":
-                    currentRow += 1
-            inputPos = match.end()
+                    current_row += 1
+            input_pos = match.end()
 
-        if inputPos != len(self._final_string):
-            token_list.append(Token("ERROR", currentRow))
+        if input_pos != len(self._final_string):
+            token_list.append(Token("ERROR", current_row))
 
-        token_list.append(Token("EOF", currentRow))
+        token_list.append(Token("EOF", current_row))
 
         return token_list
 
@@ -103,7 +113,7 @@ class Lexer:
         return token
 
     def get_last(self):
-        return self.token_list[self.current_token-1]
+        return self.token_list[self.current_token - 1]
 
     def token_type(self):
         return self.peek().token

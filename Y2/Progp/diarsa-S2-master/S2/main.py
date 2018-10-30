@@ -1,11 +1,11 @@
 # Authors: Kevin Nordwall & Diar Sabri
 
-import lexer
 import parser
+import lexer
 from leonardo import Leonardo
 from wrongsyntax import WrongSyntax
 
-# Funktion som startar och returnerar resulterande strängar
+
 def execute(p, leo):
     string = []
     if not p:
@@ -22,19 +22,31 @@ def execute(p, leo):
 
 
 def main():
-    leo = Leonardo()  # leo
-    lex = lexer.Lexer()  # lexikala analysen
+    # Skapar Leonardo objektet som håller koll på position, om pennan är uppe eller nere
+    # och vilken färg som det ska målas med
+    leo = Leonardo()
+
+    # Skapar objektet som ska bryta ner textkommandon till riktiga kommandon
+    # som sen ska skickas till Leonardo objektet
+    # Läser in från stdin när den initieras och gör om stdin till kommandon
+    # lex = innehåller en lista av tokens
+    lex = lexer.Lexer()
+
     # EXECUTE
     try:
-        parse_tree = parser.Parser(lex).tree    # syntax-trädet tar den lexikala anlysen
-        string = execute(parse_tree, leo)  # exekvera syntaxträder med leo
+        # Skickar in lex objektet som innehåller listan av tokens
+        # Får tillbaka ett träd av instruktioner
+        parse_tree = parser.Parser(lex).tree
+
+        # Kör igenom trädet och instruktionerna i rätt ordning
+        # Får tillbaka en lista av strängar som innehåller färg och position
+        string = execute(parse_tree, leo)
         for i in string:
             print(i)
-    # except AttributeError:
-    #     pass
+
     except WrongSyntax as e:
         print("Syntaxfel på rad " + str(e))
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':                         
     main()

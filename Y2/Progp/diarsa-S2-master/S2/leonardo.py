@@ -11,16 +11,16 @@ class Leonardo:
         self.pen_mode = "UP"
 
     def change_position(self, token, num):
-        #       x+dcos(πv/180)              y+dsin(πv/180)
+        #       x+dcos(πv/180)              y+dsin(πv/180) 
         x1 = self.x
         y1 = self.y
 
         if token == "FORW":
             d = num
         else:
-            d = -1*num
-        distance_x = d*math.cos(math.pi*self.angle/180)
-        distance_y = d*math.sin(math.pi*self.angle/180)
+            d = -1 * num
+        distance_x = d * math.cos(math.pi * self.angle / 180)
+        distance_y = d * math.sin(math.pi * self.angle / 180)
         self.x = self.x + distance_x
         self.y = self.y + distance_y
 
