@@ -27,14 +27,22 @@ public class ATMClient {
             Scanner scanner = new Scanner(file);
             ArrayList<String> list = new ArrayList<>();
 
+            int counter = 0;
+
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 list.add(s);
+                if (s.startsWith("!#")) {
+                    counter++;
+                }
             }
 
+            int numStrings = list.size()/counter;       //Number of strings in each language, now we dont have to specify the number in the for loop below.
+
+
             ArrayList<List<String>> langList = new ArrayList<List<String>>();
-            for (int x = 0; x < list.size(); x += 9) {
-                int y = Math.min(x + 9, list.size());
+            for (int x = 0; x < list.size(); x += numStrings) {
+                int y = Math.min(x + numStrings, list.size());
                 langList.add(list.subList(x, y));
             }
 
@@ -56,14 +64,23 @@ public class ATMClient {
             Scanner scanner = new Scanner(file);
             ArrayList<String> list = new ArrayList<>();
 
+
+            int counter = 0;
+
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 list.add(s);
+                if (s.startsWith("!#")) {
+                    counter++;
+                }
             }
 
+            int numStrings = list.size()/counter;       //Number of strings in each language, now we dont have to specify the number in the for loop below.
+
+
             ArrayList<List<String>> langList = new ArrayList<List<String>>();
-            for (int x = 0; x < list.size(); x += 9) {
-                int y = Math.min(x + 9, list.size());
+            for (int x = 0; x < list.size(); x += numStrings) {
+                int y = Math.min(x + numStrings, list.size());
                 langList.add(list.subList(x, y));
             }
 
@@ -72,7 +89,7 @@ public class ATMClient {
             ArrayList<String> langs = new ArrayList<String>();
 
             for (int i = 0; i < langList.size(); i++) {
-                langs.add(langList.get(i).get(8));
+                langs.add(langList.get(i).get(numStrings-1));
             }
 
             return langs;
@@ -196,7 +213,7 @@ public class ATMClient {
             } else if (menuOption == 4) { // change language
                 System.out.println("Choose language by entering digit");
                 for (int i = 0; i < langs.size(); i++) {
-                    System.out.println("(" + i + ")" + " " + langs.get(i));
+                    System.out.println("(" + i + ")" + " " + langs.get(i).toString().substring(2));
                 }
                 System.out.print("> ");
                 userInput = readInt(scanner); // choosing language
@@ -228,6 +245,11 @@ public class ATMClient {
                         fromServer = Integer.parseInt(in.readLine());
                     } else if (fromServer == -3) { // code -3 for reading user input (either for witdrawing or inserting)
                         number = readInt(scanner);
+                        while (number < 0) {
+                            System.out.println(list.get(8));
+                            System.out.print("> ");
+                            number = readInt(scanner);
+                        }
                         out.println(number);
                         fromServer = Integer.parseInt(in.readLine());
                     } else if (fromServer == -4) { // insufficient funds code
