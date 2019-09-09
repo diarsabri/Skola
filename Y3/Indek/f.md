@@ -1,4 +1,4 @@
-# F2
+## F2
 
 Vad är "industriell" verksamhet?
 
@@ -11,4 +11,6 @@ Konkurrensstrategi:
 
 * HM vs Gucci vs Skräddare
 * Operativ överlägsenhet vs produktledarskap vs kundnärhet
+
+## F4
 
