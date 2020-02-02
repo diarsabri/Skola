@@ -29,6 +29,18 @@ public class HashedIndex implements Index {
         //
         // YOUR CODE HERE
         //
+        PostingsEntry postingsEntryForToken = new PostingsEntry(docID, offset);
+
+        boolean emptyIndex = !index.containsKey(token);
+
+        if(emptyIndex){
+            PostingsList postingsListForToken = new PostingsList();
+            postingsListForToken.addToPostingsList(postingsEntryForToken, offset);
+            index.put(token, postingsListForToken);
+        }
+        else{
+            index.get(token).addToPostingsList(postingsEntryForToken, offset);
+        }
     }
 
 
@@ -40,7 +52,7 @@ public class HashedIndex implements Index {
         //
         // REPLACE THE STATEMENT BELOW WITH YOUR CODE
         //
-        return null;
+        return(index.get(token));
     }
 
 

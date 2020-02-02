@@ -17,6 +17,7 @@ public class PostingsEntry implements Comparable<PostingsEntry>, Serializable {
 
     public int docID;
     public double score = 0;
+    public ArrayList<Integer> offsets = new ArrayList<Integer>();
 
     /**
      *  PostingsEntries are compared by their score (only relevant
@@ -33,5 +34,32 @@ public class PostingsEntry implements Comparable<PostingsEntry>, Serializable {
     //
     // YOUR CODE HERE
     //
+    public PostingsEntry(int theDocID){
+        this.docID = theDocID;
+    }
+
+    public ArrayList<Integer> getOffsets(){
+        return this.offsets;
+    }
+
+    public void setOffsets(ArrayList<Integer> offsets){
+        for(int j = 0 ; j< offsets.size();j++){
+            this.offsets.add(offsets.get(j));
+        }
+    }
+    public PostingsEntry(int theDocID, int theOffset){
+        this.docID = theDocID;
+        this.offsets.add(theOffset);
+    }
+    public void addOffset(int offset){
+        if(!this.offsets.contains(offset)){
+            this.offsets.add(offset);
+        }
+        
+    }
+    public int getId(){
+        return this.docID;
+    }
+
 }
 

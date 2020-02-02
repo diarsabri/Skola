@@ -30,6 +30,9 @@ public class Query {
             term = t;
             weight = w;
         }
+        public String getTerm(){
+            return this.term;
+        }
     }
 
     /** 
@@ -70,6 +73,16 @@ public class Query {
         }    
     }
     
+    public ArrayList<String> getTerms(){
+        ArrayList<String> ret = new ArrayList<String>();
+        QueryTerm currentTerm;
+        for(int i = 0; i<queryterm.size();i++){
+            currentTerm = queryterm.get(i);
+            ret.add(currentTerm.getTerm());
+        }
+        return ret;
+    }
+
     
     /**
      *  Returns the number of terms
