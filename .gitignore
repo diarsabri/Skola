@@ -1,7 +1,7 @@
 *.class
 .vscode/*
-/home/diar/Desktop/Skola/Y4/Search/L1/davisWiki
-/home/diar/Desktop/Skola/Y4/Search/L1/guardian
+/home/diar/Desktop/Skola/Y4/Search/L1/davisWiki/*
+/home/diar/Desktop/Skola/Y4/Search/L1/guardian/*
 *.vscode/*
 # !.vscode/settings.json
 # !.vscode/tasks.json
