@@ -9,9 +9,6 @@ package ir;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Iterator;
-import java.nio.charset.*;
-import java.io.*;
 
 
 /**
@@ -68,63 +65,6 @@ public class Query {
         while ( tok.hasMoreTokens() ) {
             queryterm.add( new QueryTerm(tok.nextToken(), 1.0) );
         }    
-    }
-    
-    
-    /**
-     *  Returns the number of terms
-     */
-    public int size() {
-        return queryterm.size();
-    }
-    
-    
-    /**
-     *  Returns the Manhattan query length
-     */
-    public double length() {
-        double len = 0;
-        for ( QueryTerm t : queryterm ) {
-            len += t.weight; 
-        }
-        return len;
-    }
-    
-    
-    /**
-     *  Returns a copy of the Query
-     */
-    public Query copy() {
-        Query queryCopy = new Query();
-        for ( QueryTerm t : queryterm ) {
-            queryCopy.queryterm.add( new QueryTerm(t.term, t.weight) );
-        }
-        return queryCopy;
-    }
-    
-    public double idf(String term, Engine engine) {
-        if (engine.index.getPostings(term) == null) {
-            return 0.0;
-        }
-        int N = engine.index.docLengths.size();
-        int df = engine.index.getPostings(term).list.size();
-        return Math.log(N / df);
-    }
-
-    public double idf2(String term, int docId, Engine engine) {
-        return idf(term, engine) / Index.docLengths.get(docId);
-    }
-
-
-    public double tf_idf(String term, int docId, Engine engine) {
-        return tf(term, docId, engine) * idf2(term, docId, engine);
-    }
-
-    public int tf(String term, int id, Engine engine) {
-        if (engine.index.getPostings(term) == null) {
-            return 0;
-        }
-        return engine.index.getPostings(term).docIDs.get(id).positions.size();
     }
 
     /**

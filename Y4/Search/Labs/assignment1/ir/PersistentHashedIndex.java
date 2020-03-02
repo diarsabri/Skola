@@ -1,23 +1,22 @@
-/*  
+/*
  *   This file is part of the computer assignment for the
  *   Information Retrieval course at KTH.
- * 
+ *
  *   Johan Boye, KTH, 2018
- */  
+ */
 
 package ir;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.*;
-import java.nio.charset.*;
-
 
 /*
  *   Implements an inverted index as a hashtable on disk.
- *   
+ *
  *   Both the words (the dictionary) and the data (the postings list) are
  *   stored in RandomAccessFiles that permit fast (almost constant-time)
- *   disk seeks. 
+ *   disk seeks.
  *
  *   When words are read and indexed, they are first put in an ordinary,
  *   main-memory HashMap. When all words are read, the index is committed
@@ -26,7 +25,7 @@ import java.nio.charset.*;
 public class PersistentHashedIndex implements Index {
 
     /** The directory where the persistent index files are stored. */
-    public static final String INDEXDIR = "./index";
+    public static final String INDEXDIR = "/home/diar/Desktop/Skola/Y4/Search/Labs/index";
 
     /** The dictionary file name */
     public static final String DICTIONARY_FNAME = "dictionary";
@@ -50,18 +49,59 @@ public class PersistentHashedIndex implements Index {
     RandomAccessFile dataFile;
 
     /** Pointer to the first free memory cell in the data file. */
-    long free = 0L;
+    private long free = 0L;
 
     /** The cache as a main-memory hash map. */
     HashMap<String,PostingsList> index = new HashMap<String,PostingsList>();
+
+    int entryLen = 13;
+
 
 
     // ===================================================================
 
     /**
      *   A helper class representing one entry in the dictionary hashtable.
-     */ 
+     */
     public class Entry {
+
+        public String token;
+        int correctFirst = 1;
+        private long dataPtr;
+        private byte first = (byte) correctFirst;
+        private int len;
+        boolean valid = true;
+
+        public Entry() {
+        }
+
+        public byte[] toByte() {
+            ByteBuffer buffer = ByteBuffer.allocate(entryLen);
+            buffer.put(first);
+            buffer.putLong(Byte.BYTES, dataPtr);
+            buffer.putInt(Byte.BYTES+Long.BYTES, len);
+            return buffer.array();
+        }
+
+        public void toEntry(byte[] b) {
+
+            ByteBuffer buffer = ByteBuffer.wrap(b, 0, Byte.BYTES);
+            this.first = buffer.get();
+            if(this.first != (byte) correctFirst) {
+                this.valid = false;
+            }
+            buffer = ByteBuffer.wrap(b, Byte.BYTES, Long.BYTES);
+            this.dataPtr = buffer.getLong();
+            buffer = ByteBuffer.wrap(b, Byte.BYTES+Long.BYTES, Integer.BYTES);
+            this.len = buffer.getInt();
+        }
+
+
+        public void set(int len) {
+            this.len = len;
+            this.dataPtr = free;
+        }
+
         //
         //  YOUR CODE HERE
         //
@@ -70,10 +110,10 @@ public class PersistentHashedIndex implements Index {
 
     // ==================================================================
 
-    
+
     /**
      *  Constructor. Opens the dictionary file and the data file.
-     *  If these files don't exist, they will be created. 
+     *  If these files don't exist, they will be created.
      */
     public PersistentHashedIndex() {
         try {
@@ -85,7 +125,7 @@ public class PersistentHashedIndex implements Index {
 
         try {
             readDocInfo();
-        } catch ( FileNotFoundException e ) {
+        } catch ( FileNotFoundException ignored) {
         } catch ( IOException e ) {
             e.printStackTrace();
         }
@@ -95,10 +135,10 @@ public class PersistentHashedIndex implements Index {
      *  Writes data to the data file at a specified place.
      *
      *  @return The number of bytes written.
-     */ 
+     */
     int writeData( String dataString, long ptr ) {
         try {
-            dataFile.seek( ptr ); 
+            dataFile.seek( ptr );
             byte[] data = dataString.getBytes();
             dataFile.write( data );
             return data.length;
@@ -111,7 +151,7 @@ public class PersistentHashedIndex implements Index {
 
     /**
      *  Reads data from the data file
-     */ 
+     */
     String readData( long ptr, int size ) {
         try {
             dataFile.seek( ptr );
@@ -130,15 +170,24 @@ public class PersistentHashedIndex implements Index {
     //  Reading and writing to the dictionary file.
 
     /*
-     *  Writes an entry to the dictionary hash table file. 
+     *  Writes an entry to the dictionary hash table file.
      *
      *  @param entry The key of this entry is assumed to have a fixed length
      *  @param ptr   The place in the dictionary file to store the entry
      */
-    void writeEntry( Entry entry, long ptr ) {
+    void writeEntry(Entry entry, long ptr) {
         //
         //  YOUR CODE HERE
         //
+
+        try {
+            dictionaryFile.seek( ptr );
+            byte[] entryBytes = entry.toByte();
+            dictionaryFile.write(entryBytes);
+        }
+        catch ( IOException e ) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -146,11 +195,36 @@ public class PersistentHashedIndex implements Index {
      *
      *  @param ptr The place in the dictionary file where to start reading.
      */
-    Entry readEntry( long ptr ) {   
+    Entry readEntry(long ptr) {
         //
-        //  REPLACE THE STATEMENT BELOW WITH YOUR CODE 
+        //  REPLACE THE STATEMENT BELOW WITH YOUR CODE
         //
-        return null;
+
+        Entry entry = new Entry();
+
+        try {
+            dictionaryFile.seek( ptr );
+            byte[] data = new byte[entryLen];
+            dictionaryFile.readFully( data );
+
+            entry.toEntry(data);
+
+            if(!entry.valid)
+                return null;
+
+            String postings = readData( entry.dataPtr, entry.len);
+
+            if(postings == null) {
+                return null;
+            }
+            entry.token = postings.split(";")[0];
+
+        }
+        catch (IOException e) {
+            //e.printStackTrace();
+            return null;
+        }
+        return entry;
     }
 
 
@@ -204,15 +278,55 @@ public class PersistentHashedIndex implements Index {
 
             // Write the dictionary and the postings list
 
-            // 
-            //  YOUR CODE HERE
-            //
+            FileWriter writer = new FileWriter("/home/diar/Desktop/Skola/Y4/Search/Labs/index/dictionary");
+            BufferedWriter dictWriter = new BufferedWriter(writer);
+
+            long dataPtr;
+            int postLen;
+            int colli;
+            for (Map.Entry<String, PostingsList> entry : index.entrySet()) {
+                postLen = writeData(entry.getKey() + ";" + entry.getValue().toString(), free);
+
+                Entry dictEntry = new Entry();
+                dictEntry.set(postLen);
+                free += postLen;
+
+                colli = 0;
+                dataPtr = hashKey(entry.getKey(), colli);
+
+                while(readEntry(dataPtr) != null) {
+                    colli++;
+                    dataPtr = hashKey(entry.getKey(), colli);
+                    collisions++;
+                }
+
+                writeEntry(dictEntry, dataPtr);
+            }
+
+            dictWriter.close();
+
         } catch ( IOException e ) {
             e.printStackTrace();
         }
         System.err.println( collisions + " collisions." );
     }
 
+
+    public long hashKey(String token, int colli) {
+        long ptr = 0L;
+
+        for (int i = 0 ; i < token.length() ; i++) {
+            ptr = ptr*101 + (int)token.charAt(i);
+        }
+        ptr = Math.abs(ptr);
+
+        ptr = ptr % TABLESIZE;
+        for(int i = 0; i < colli; i++) {
+            ptr = (ptr + 1) % TABLESIZE;
+        }
+
+        return ptr*entryLen;
+    }
 
     // ==================================================================
 
@@ -225,7 +339,93 @@ public class PersistentHashedIndex implements Index {
         //
         //  REPLACE THE STATEMENT BELOW WITH YOUR CODE
         //
-        return null;
+
+        Entry entry;
+        long ptr = hashKey(token, 0);
+
+        int colli = 0;
+        entry = readEntry(ptr);
+
+        if(entry == null) {
+            return null;
+        }
+
+        while(!entry.token.equals(token)) {
+            colli++;
+            ptr = hashKey(token, colli);
+            entry = readEntry(ptr);
+            if(entry == null) {
+                return null;
+            }
+        }
+        return dataTranslater2(readData(entry.dataPtr, entry.len));
+    }
+
+
+    public PostingsList dataTranslater2(String data) {
+        PostingsList postingsList = null;
+        String[] str = data.split(";");
+
+
+        if (str.length > 0) {
+            postingsList = new PostingsList();
+            for (int i = 1; i < str.length; i++) {
+                ArrayList<Integer> offsets = new ArrayList<>();
+                String[] entry = str[i].split(",");
+
+                for (int j = 1; j < entry.length; j++) {
+                    offsets.add(Integer.valueOf(entry[j]));
+                }
+                postingsList.addPostEntryList(Integer.parseInt(entry[0]), offsets);
+            }
+        }
+        return postingsList;
+    }
+
+
+    public PostingsList dataTranslater(String data) {
+        Long start = System.currentTimeMillis();
+        PostingsList pl = null;
+        StringTokenizer offsetToken, postList = null;
+        ArrayList<Integer> offsets;
+        String buf;
+        int docID;
+
+        StringTokenizer docToken = new StringTokenizer(data);
+        buf = docToken.nextToken();
+
+        docToken = new StringTokenizer(data.substring(buf.length() + 1), ";");
+
+        while (docToken.hasMoreTokens()) {
+
+            postList = new StringTokenizer(docToken.nextToken());
+            docID = Integer.parseInt(postList.nextToken());
+
+            offsetToken = new StringTokenizer(postList.nextToken(), ",");
+
+
+            offsets = new ArrayList<>();
+
+
+            while (offsetToken.hasMoreTokens()) {
+                offsets.add(Integer.parseInt(offsetToken.nextToken()));
+            }
+
+
+            if (pl == null) {
+
+                pl = new PostingsList();
+
+            } else {
+                pl.addPostEntryList(docID, offsets);
+            }
+
+
+        }
+        System.out.println("This is the time for translating: " + (System.currentTimeMillis() - start));
+
+
+        return pl;
     }
 
 
@@ -233,9 +433,18 @@ public class PersistentHashedIndex implements Index {
      *  Inserts this token in the main-memory hashtable.
      */
     public void insert( String token, int docID, int offset ) {
-        //
-        //  YOUR CODE HERE
-        //
+        {
+            if (index.get(token) != null) {
+                PostingsList pl = index.get(token);
+                pl.addPostEntry(docID, offset);
+                index.put(token, pl);
+
+            } else {
+                PostingsList pl = new PostingsList();
+                pl.addPostEntry(docID, offset);
+                index.put(token, pl);
+            }
+        }
     }
 
 

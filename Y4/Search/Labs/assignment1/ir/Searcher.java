@@ -1,12 +1,11 @@
-/*  
+/*
  *   This file is part of the computer assignment for the
  *   Information Retrieval course at KTH.
- * 
+ *
  *   Johan Boye, 2017
- */  
+ */
 
 package ir;
-import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -19,7 +18,7 @@ public class Searcher {
 
     /** The k-gram index to be searched by this Searcher */
     KGramIndex kgIndex;
-    
+
     /** Constructor */
     public Searcher( Index index, KGramIndex kgIndex ) {
         this.index = index;
@@ -30,7 +29,7 @@ public class Searcher {
      *  Searches the index for postings matching the query.
      *  @return A postings list representing the result of the query.
      */
-    public PostingsList search( Query query, QueryType queryType, RankingType rankingType ) { 
+    public PostingsList search( Query query, QueryType queryType, RankingType rankingType ) {
         ArrayList<Query.QueryTerm> listOfTerms = query.queryterm;
         LinkedList<PostingsList> linkedPostings = new LinkedList<>();
 
@@ -86,7 +85,7 @@ public class Searcher {
     public PostingsList phraseQuery(PostingsList PL1, PostingsList PL2){
         PostingsList answer = new PostingsList();
         int pi,pj,pos1,pos2;
-        int i = 0; 
+        int i = 0;
         int j = 0;
 
         PostingsEntry p1, p2;
@@ -136,7 +135,6 @@ public class Searcher {
                     entries.put(d.docID, new PostingsEntry(d.docID));
                 }
                 entries.get(d.docID).score += (d.positions.size() * Math.log((double) n/p.size())) / index.docLengths.get(d.docID);
-                //System.err.println("Add this Score to DocID= " + d.docID + ": " + score[d.docID]);
             }
         }
         PostingsList tmp = new PostingsList();

@@ -30,34 +30,14 @@ public class PostingsList {
         }
     }
 
-    public ArrayList<PostingsEntry> getList() {
-        return list;
-    }
-
     /** Number of postings in this list. */
     public int size() {
-    return list.size();
+        return list.size();
     }
 
     /** Returns the ith posting. */
     public PostingsEntry get( int i ) {
-    return list.get( i );
-    }
-
-    public boolean hasSkip(int i) {
-        if (i + skip < list.size() && skip != 0) {
-            return 0 == list.size() % skip;
-        }
-        return false;
-    }
-
-    public PostingsEntry getSkip(int i) {
-        return list.get(i + skip);
-    }
-
-
-    public int compareTo(PostingsList o) {
-        return this.size() - o.size();
+        return list.get( i );
     }
 
     public void addPostEntryList(int docID, ArrayList<Integer> offsets) {
@@ -71,5 +51,15 @@ public class PostingsList {
             list.add(entry);
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (PostingsEntry entry : list) {
+            sb.append(entry.toString());
+        }
+        return sb.toString();
+    }
+
 }
 

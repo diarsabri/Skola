@@ -9,7 +9,6 @@
 package ir;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 
 /**
@@ -47,11 +46,6 @@ public class HashedIndex implements Index {
      */
     public PostingsList getPostings( String token ) {
         return index.get(token);
-    }
-
-    //D
-    public HashMap<String, PostingsList> getIndex() {
-        return index;
     }
 
     /**
