@@ -1,0 +1,21 @@
+[
+    [usr, [pin,inv]],
+    [pin, [inv,val]],
+    [inv, [usr]],
+    [val, [drw,end]],
+    [drw, [end]],
+    [end, [urs]]
+].
+
+[
+    [usr, [user1,user2]],
+    [pin, [pin1,pin2]],
+    [inv, [f]],
+    [val, [s]],
+    [drw, [v]],
+    [end, [fin]]
+].
+
+usr.
+
+ef(ex(fin)).
